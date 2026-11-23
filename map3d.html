@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>3D Map · Río Santiago Atlas</title>
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="top" id="top"></header>
+<div class="layout"><aside class="side" id="side"></aside>
+<main>
+ <section class="sec" id="m3"><h2 data-t="h_m3"></h2><div class="body">
+  <p class="lead" data-t="m3_lead"></p>
+  <div class="ctl"><label><span data-t="parameter"></span><select id="gp"></select></label><label><span data-t="season"></span><select id="gs"></select></label><label><span data-t="barColour"></span><select id="gc"></select></label><label><span data-t="baseDisk"></span><select id="gb"></select></label></div>
+  <div class="ctl"><label class="row"><input type="checkbox" id="gf"> <span data-t="showFc"></span></label><label class="row"><input type="checkbox" id="gl"> <span data-t="landmarks"></span></label><label class="row"><input type="checkbox" id="gt" disabled> <span data-t="terrain"></span></label>
+   <label><span><span data-t="relief"></span> <b id="grv">1.0×</b></span><input type="range" id="gr" min="0.4" max="2.5" step="0.1" value="1"></label>
+   <button id="gtop" data-t="topView"></button><button id="grst" data-t="resetView"></button></div>
+  <div class="ctl"><button id="gplay">▶ <span data-t="play"></span></button><label style="flex:1;min-width:200px"><span><span data-t="year"></span> <b id="gyv"></b></span><input type="range" id="gy" min="2009" max="2024" step="1" value="2024" style="width:100%"></label></div>
+  <div class="mapwrap"><div class="mapbox"><canvas id="gcv" style="height:560px"></canvas><div class="rem" data-t="reminder"></div><div class="hint" data-t="mapHint"></div></div><div class="mcard" id="gcard"></div></div>
+  <div class="legend" id="gleg"></div><p class="small" id="gnote"></p>
+ </div></section>
+ <section class="sec" id="overview"><h2 data-t="overview"></h2><div class="body" id="ov"></div></section>
+</main></div>
+<footer class="credit" id="credit"></footer>
+<script src="core.js"></script><script src="points.js"></script><script src="common.js"></script><script src="map3d.js"></script>
+<script src="map3dpage.js"></script>
+</body></html>

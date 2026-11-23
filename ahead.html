@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Looking Ahead · Río Santiago Atlas</title>
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="top" id="top"></header>
+<div class="layout"><aside class="side" id="side"></aside>
+<main>
+ <section class="sec" id="fcchart"><h2 data-t="h_fc"></h2><div class="body">
+  <p class="lead" data-t="fc_lead"></p>
+  <div class="ctl"><label><span data-t="parameter"></span><select id="fp"></select></label><label class="row"><input type="checkbox" id="flog"> <span data-t="logAxis"></span></label></div>
+  <div id="fchart"></div><div class="legend" id="fleg"></div><p class="small" id="fnote"></p>
+ </div></section>
+ <section class="sec" id="can"><h2 data-t="h_can"></h2><div class="body">
+  <p class="lead" data-t="can_lead"></p><div id="cbar"></div><div class="legend" id="cleg"></div>
+  <h3 data-t="shownH"></h3><div class="grid g3" id="cards"></div>
+ </div></section>
+ <section class="sec" id="obs"><h2 data-t="h_obs"></h2><div class="body">
+  <p class="lead" data-t="obs_lead"></p>
+  <div class="ctl"><label><span data-t="parameter"></span><select id="op"></select></label><label><span data-t="feature"></span><select id="oh"></select></label><label><span data-t="model"></span><select id="om"></select></label><label class="row"><input type="checkbox" id="olog"> <span data-t="logAxis"></span></label></div>
+  <div class="grid g2"><div id="ochart"></div><div id="oscore"></div></div><p class="small" id="onote"></p>
+ </div></section>
+ <section class="sec" id="overview"><h2 data-t="h_solid"></h2><div class="body" id="ov"></div></section>
+</main></div>
+<footer class="credit" id="credit"></footer>
+<script src="core.js"></script><script src="points.js"></script><script src="bt.js"></script><script src="common.js"></script>
+<script src="ahead.js"></script>
+</body></html>

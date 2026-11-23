@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Río Santiago Atlas</title>
+<link rel="stylesheet" href="style.css"></head>
+<body class="home">
+<div class="hero">
+ <header class="top" id="top"></header>
+ <div class="stage">
+  <div class="mid">
+   <h1 class="htitle"><span data-t="hTitle"></span><em data-t="hSub"></em></h1>
+   <div class="mini" id="mini"></div>
+  </div>
+  <section class="pickband" aria-label="Sections">
+   <h2 data-t="pickH"></h2>
+   <div class="car" id="car">
+    <button class="arr l" id="pv" aria-label="Previous">←</button><button class="arr r" id="nx" aria-label="Next">→</button>
+   </div>
+   <div class="gobar"><a class="go" id="go" href="quality.html" data-t="explore"></a><div class="dots" id="dots"></div></div>
+  </section>
+ </div>
+ <footer class="credit" id="credit"></footer>
+</div>
+<script src="core.js"></script>
+<script src="common.js"></script>
+<script>
+U.add({en:{hTitle:'Río Santiago',hSub:'Water-quality analysis, 2009–2025',pickH:'Pick a card to explore',explore:'Explore',c1:'stations',c2:'parameters',c3:'monthly sampling',
+ d1:'What was measured, where and when',d2:'All 44 parameters, station by station',d3:'Water data and the people nearby',d4:'What models can and cannot say',d5:'The river and its municipalities in 3D'},
+es:{hTitle:'Río Santiago',hSub:'Análisis de la calidad del agua, 2009–2025',pickH:'Elige una tarjeta para explorar',explore:'Explorar',c1:'estaciones',c2:'parámetros',c3:'muestreo mensual',
+ d1:'Qué se midió, dónde y cuándo',d2:'Los 44 parámetros, estación por estación',d3:'Datos del agua y las personas cercanas',d4:'Qué pueden y qué no pueden decir los modelos',d5:'El río y sus municipios en 3D'}});
+const W='stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+const CARDS=[
+ ['quality.html','nQuality','d1','0% 60%','230%','#1fb5b0',()=>{let r='';A.heat_m.forEach((row,i)=>row.forEach((v,j)=>{r+=`<rect x="${20+j*15.5}" y="${10+i*11.6}" width="13.5" height="10" rx="1.5" fill="#fff" opacity="${v?.15+.75*v/12:.05}"/>`}));return r}],
+ ['trends.html','nTrends','d2','50% 85%','230%','#4f93d6',()=>{const s=P.find(p=>p.id==='P13').series,mx=Math.max(...Object.values(s).flat());return ['Before','Urban','After'].map((z,k)=>`<polyline ${W} stroke-width="${k==1?3:2}" opacity="${k==1?1:.7}" ${k==2?'stroke-dasharray="5 4"':''} points="${s[z].map((v,i)=>(18+i*17.6)+','+(150-v/mx*130)).join(' ')}"/>`).join('')}],
+ ['socio.html','nSocio','d3','100% 40%','230%','#e0a03a',()=>[40,65,50,90,75,110,60,95].map((h,i)=>`<rect x="${28+i*29}" y="${150-h}" width="20" height="${h}" fill="#fff" opacity="${.35+i*.07}"/>`).join('')+`<circle cx="60" cy="40" r="6" fill="#fff"/><circle cx="150" cy="30" r="6" fill="#fff" opacity=".7"/><circle cx="230" cy="48" r="6" fill="#fff" opacity=".5"/>`],
+ ['ahead.html','nAhead','d4','30% 30%','230%','#9b78dc',()=>`<polyline ${W} stroke-width="3" points="20,110 60,95 100,105 140,80"/><polyline ${W} stroke-width="3" stroke-dasharray="6 6" points="140,80 200,60 270,50"/><path d="M140 80 L200 40 L270 20 L270 90 L200 85 Z" fill="#fff" opacity=".18"/>`],
+ ['map3d.html','nMap','d5','70% 70%','230%','#4fc08a',()=>[[60,100,40],[110,85,70],[160,100,30],[210,80,80],[250,100,50]].map(p=>`<polygon points="${p[0]},${p[1]-p[2]} ${p[0]+22},${p[1]-p[2]+10} ${p[0]+22},${p[1]+10} ${p[0]},${p[1]}" fill="#fff" opacity=".55"/><polygon points="${p[0]},${p[1]-p[2]} ${p[0]-22},${p[1]-p[2]+10} ${p[0]-22},${p[1]+10} ${p[0]},${p[1]}" fill="#fff" opacity=".3"/><polygon points="${p[0]},${p[1]-p[2]} ${p[0]+22},${p[1]-p[2]+10} ${p[0]},${p[1]-p[2]+20} ${p[0]-22},${p[1]-p[2]+10}" fill="#fff" opacity=".85"/>`).join('')+`<path d="M20 150 Q100 120 160 140 T280 120" ${W} stroke-width="2" opacity=".7"/>`]
+];
+const A=ATLAS,P=A.params,sum=k=>P.reduce((a,p)=>a+p.trend[k],0),nf=n=>U.nf(n);
+const DET=()=>{const es=U.lang()==='es',f=A.fsum;return [
+ [[nf(A.stats.records),es?'registros':'records'],[nf(A.stats.visits),es?'fechas de muestreo':'sampling dates'],[A.months.length||196,es?'meses':'months']],
+ [[sum('inc'),es?'aumentos':'increases'],[sum('dec'),es?'disminuciones':'decreases'],[P.length,es?'parámetros':'parameters']],
+ [[A.munis.length,es?'municipios':'municipalities'],[A.stations.filter(s=>s.c).length,es?'estaciones enlazadas':'stations linked'],[3,es?'censos':'census periods']],
+ [[f.total,es?'pronósticos probados':'forecasts tested'],[f.shown,es?'conservados':'kept'],[3,es?'horizontes':'horizons']],
+ [[A.stations.length,es?'estaciones':'stations'],[2009+'–2024',es?'control de año':'year slider'],[es?'girar':'rotate',es?'y acercar':'& zoom']]]};
+let cur=0;const car=document.getElementById('car');
+car.insertAdjacentHTML('beforeend',CARDS.map((c,i)=>`<div class="cd gl" data-i="${i}" style="--c:${c[5]}"><div class="th" style="--bp:${c[3]};--bs:${c[4]}"><svg viewBox="0 0 290 170" preserveAspectRatio="xMidYMid slice">${c[6]()}</svg><span class="no">${i+1}</span></div><h3 data-t="${c[1]}"></h3><p data-t="${c[2]}"></p><div class="det" data-det="${i}"></div></div>`).join(''));
+document.getElementById('dots').innerHTML=CARDS.map((c,i)=>`<i data-i="${i}"></i>`).join('');
+function det(){const d=DET();document.querySelectorAll('.det').forEach(e=>e.innerHTML=d[+e.dataset.det].map(x=>`<span><b>${x[0]}</b>${x[1]}</span>`).join(''));document.getElementById('mini').textContent=`${A.stations.length} ${U.t('c1')} · ${P.length} ${U.t('c2')} · 2009–2025 · ${U.t('c3')}`}
+function place(){const n=CARDS.length;document.querySelectorAll('.cd').forEach((el,i)=>{const o=((i-cur+Math.floor(n/2)+n)%n)-Math.floor(n/2);el.style.setProperty('--o',o);el.style.setProperty('--a',Math.abs(o));el.dataset.hide=Math.abs(o)===2?'2':'0'});
+ document.querySelectorAll('.dots i').forEach((d,i)=>d.classList.toggle('on',i===cur));document.getElementById('go').href=CARDS[cur][0];document.querySelector('.pickband').style.setProperty('--cc',CARDS[cur][5])}
+const go=d=>{cur=(cur+d+CARDS.length)%CARDS.length;place()};
+document.getElementById('nx').onclick=()=>go(1);document.getElementById('pv').onclick=()=>go(-1);
+car.addEventListener('click',e=>{const c=e.target.closest('.cd');if(c&&+c.dataset.i!==cur){cur=+c.dataset.i;place()}});
+document.getElementById('dots').addEventListener('click',e=>{if(e.target.dataset.i){cur=+e.target.dataset.i;place()}});
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)});
+let sx=null;car.addEventListener('pointerdown',e=>sx=e.clientX);car.addEventListener('pointerup',e=>{if(sx!=null&&Math.abs(e.clientX-sx)>50)go(e.clientX<sx?1:-1);sx=null});
+U.init('home',det);place();
+</script></body></html>

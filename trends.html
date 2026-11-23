@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Parameter Trends · Río Santiago Atlas</title>
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="top" id="top"></header>
+<div class="layout"><aside class="side" id="side"></aside>
+<main>
+ <section class="sec" id="cards"><h2 data-t="h_cards"></h2><div class="body">
+  <p class="lead" data-t="cards_lead"></p>
+  <div class="ctl"><label><span data-t="search"></span><input type="search" id="q" data-ph="phSearch"></label></div>
+  <div class="chips" id="cats"></div><div class="cards" id="grid"></div>
+ </div></section>
+ <section class="sec" id="detail"><h2 data-t="h_detail"></h2><div class="body" id="dt"></div></section>
+ <section class="sec" id="series"><h2 data-t="h_series"></h2><div class="body">
+  <div class="ctl"><label><span data-t="parameter"></span><select id="sp"></select></label><label class="row"><input type="checkbox" id="slog"> <span data-t="logAxis"></span></label></div>
+  <div class="chips" id="sch"></div><div id="schart"></div><p class="small" data-t="series_note"></p><div class="grid g3" id="sbox"></div>
+ </div></section>
+ <section class="sec" id="season"><h2 data-t="h_season"></h2><div class="body">
+  <div class="ctl"><label><span data-t="parameter"></span><select id="ep"></select></label><label><span data-t="plot"></span><select id="et"></select></label><label><span data-t="scope"></span><select id="es"></select></label></div>
+  <div id="echart"></div><p class="small" id="enote"></p>
+ </div></section>
+ <section class="sec" id="zones"><h2 data-t="h_zones"></h2><div class="body">
+  <div class="ctl"><label><span data-t="parameter"></span><select id="zp"></select></label></div>
+  <div id="zchart"></div><div class="legend" id="zleg"></div><div class="grid g4" id="zbox" style="margin-top:10px"></div><p class="small" id="znote"></p>
+ </div></section>
+ <section class="sec" id="tmap"><h2 data-t="h_tmap"></h2><div class="body">
+  <p class="lead" data-t="tmap_lead"></p><div class="legend" id="tleg" style="margin:0 0 6px"></div>
+  <div class="tw" style="max-height:620px"><table class="t" id="tm" style="font-size:.8rem"></table></div>
+ </div></section>
+ <section class="sec" id="overview"><h2 data-t="overview"></h2><div class="body" id="ov"></div></section>
+</main></div>
+<footer class="credit" id="credit"></footer>
+<script src="core.js"></script><script src="points.js"></script><script src="common.js"></script>
+<script src="trends.js"></script>
+</body></html>
